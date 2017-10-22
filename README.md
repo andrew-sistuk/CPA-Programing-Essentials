@@ -1,2 +1,2 @@
-# CPA-Programing-Essentials-in-C-
+# CPA-Programing-Essentials
 CPA Programing Essentials in C++
