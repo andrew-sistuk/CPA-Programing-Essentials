@@ -17,7 +17,5 @@ int main(void) {
 	}
 
 	cout << "steps: " << counter << endl;
-
-	system("pause");
 	return 0;
 }
