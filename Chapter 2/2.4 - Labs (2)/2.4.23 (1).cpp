@@ -17,6 +17,5 @@ int main(void) {
 
 	cout << counter << endl;
 
-	system("pause");
 	return 0;
 }
