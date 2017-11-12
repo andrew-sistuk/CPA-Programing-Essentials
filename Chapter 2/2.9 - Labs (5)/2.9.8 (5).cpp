@@ -8,7 +8,6 @@ int main(void) {
 	{ 2, 2, 3, 1 },
 	{ 3, 3, 3, 2 },
 	{ 4, 1, 2, 4 } };
-	//double matrix[][5] = { { 4, 0, 5, 6, 3 }, { 0, 5, 2, 4, 2 }, { 5, 2, 1, 3, 4 }, { 6, 4, 3, 2, 1 }, { 3, 2, 4, 1, 3 } };
 	int side = sizeof(matrix[0]) / sizeof(matrix[0][0]);
 	bool issymmetric = true;
 
