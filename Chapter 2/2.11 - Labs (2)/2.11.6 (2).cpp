@@ -16,7 +16,6 @@ int main(void) {
 	cin >> startTime.hours >> startTime.minutes;
 	if (startTime.hours >= 24 || startTime.minutes > 60) {
 		cout << "Start time is wrong" << endl;
-		system("pause");
 		return 0;
 	}
 
@@ -24,7 +23,6 @@ int main(void) {
 	cin >> endTime.hours >> endTime.minutes;
 	if (endTime.hours >= 24 || endTime.minutes > 60 || endTime.hours < startTime.hours) {
 		cout << "End time is wrong" << endl;
-		system("pause");
 		return 0;
 	}
 
