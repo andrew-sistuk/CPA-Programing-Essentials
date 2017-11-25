@@ -1,53 +1,31 @@
-#include "stdafx.h"
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <cmath>
 
 using namespace std;
 
-bool IsPresent(int balls[], int val, int ballsCount) {
+void increment(int &value, int incrementValue = 1) {
+	value += incrementValue;
+}
 
-	for (int i = 0; i < ballsCount; i++) {
-		
-		if (balls[i] == val) return true;
-	}
-
-	return false;
+void increment(float &value, int incrementValue = 1) {
+	value += incrementValue;
 }
 
 int main(void) {
 
-	int maxball;
-	int ballsno;
-	int *ballsMachine;
-	int rnd = 1;
-	int generetedBallNum;
+	int intvar = 0;
+	float floatvar = 1.5;
 
-	cout << "Max ball number? ";
-	cin >> maxball;
-	cout << "How many balls? ";
-	cin >> ballsno;
-
-	srand(time(NULL));
-
-	ballsMachine = new int[ballsno];
-
-	for (int i = 0; i < ballsno; i++) {
-		generetedBallNum = rand() % maxball + 1;
-
-		if (IsPresent(ballsMachine, generetedBallNum, ballsno)) {
-			i--;
-			continue;
+	for (int i = 0; i < 10; i++) {
+		if (i % 2) {
+			increment(intvar);
+			increment(floatvar, sqrt(intvar));
 		}
-
-		ballsMachine[i] = generetedBallNum;
+		else {
+			increment(intvar, i);
+			increment(floatvar);
+		}
 	}
-
-	for (int i = 0; i < ballsno; i++)
-		cout << ballsMachine[i] << ' ';
-	cout << endl;
-
-	delete[] ballsMachine;
-
+	cout << intvar * floatvar << endl;
 	return 0;
 }
