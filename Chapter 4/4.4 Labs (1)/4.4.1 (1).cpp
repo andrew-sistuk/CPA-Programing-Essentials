@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include <string>
 #include <iostream>
 
@@ -19,7 +18,6 @@ int *CountAllChars(string str) {
 
 	int *countedChars = new int[26];
 
-	// 0-25 + 97 are lower case char, 0-25 + 65 are upper case chars
 	for (int i = 0; i <= 25; i++)
 		countedChars[i] = CountSpecChar(str, (char)(i + 97)) + CountSpecChar(str, (char)(i + 65));
 

@@ -1,28 +1,27 @@
-#include <string>
 #include <iostream>
+#include <string>
+using namespace std;
 
 int main()
 {
-	int index = 0;
-	std::string from;
-	std::string to;
-	std::string sentence;
+    std::string sentence,word,rem;
+std::getline(std::cin, sentence);
 
-	std::cout << "Enter from: ";
-	std::getline(std::cin, from);
+int l=0,r=sentence.find(' ');
+while(true){
+        if(r==string::npos)
+            break;
+       word = sentence.substr(l,r-l);
+       rem=sentence.substr(r+1);
+       if(rem.find(word)!=string::npos){
+            rem=rem.erase(rem.find(word),word.length());
+            sentence = sentence.substr(0,l)+word+rem;
+            r=0;
 
-	std::cout << "Enter to: ";
-	std::getline(std::cin, to);
-
-	std::cout << "Enter sentence: ";
-	std::getline(std::cin, sentence);
-
-	// first iteration searches from zero position
-	index -= to.length();
-
-	// index + to.length() for start searching from changed word
-	// 'cause word to may contain from and cycle never reach end
-	while ((index = sentence.find(from, index + to.length())) != -1)
-		sentence.replace(index, from.length(), to);
-
-	std::cout << sentence << "\n";
+       }
+       l=sentence.find(' ',r)+1;
+       r=sentence.find(' ',l);
+}
+std::cout << sentence << "\n";
+    return 0;
+}
