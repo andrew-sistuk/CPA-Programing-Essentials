@@ -1,59 +1,47 @@
-#include <iostream>
 #include <string>
-
+#include <iostream>
 using namespace std;
 
-string CheckIP(string address)
+string Find(string str1, string str2, string str3)
 {
-	string currentOctet;
-	int index = -1;
-	int dotsCount = 0;
-
-	while ((index = address.find('.', index + 1)) != -1)
-		dotsCount++;
-
-	if (dotsCount < 3)
-		return "Too many octets";
-
-	index = -1;
-
-	for (int i = 0; i < 4; i++)
+	int i = 0, j = 0, k = 0;
+	while (str1.find("[" + str2 + "]") != string::npos)
 	{
-		if (i == 3)
+		i = str1.find("[" + str2 + "]");
+		str1.replace(i, str2.length() + 2, str3);
+	}
+	return str1;
+
+}
+
+string Replace(string str, string temp)
+{
+	int i = 0, j = 0, k = 0;
+	while (str.length() != 0)
+	{
+		if (str.find(",") == string::npos)
 		{
-			currentOctet = address.substr(index + 1);
+			i = str.length();
 		}
 		else
 		{
-			currentOctet = address.substr(index + 1,
-				address.find('.', index + 1) - index - 1);
+			i = str.find(",");
 		}
-
-		if (currentOctet.length() > 3)
-			return "Too many characters in a part";
-
-		index = address.find('.', index + 1);
-
-		try
-		{
-			if (stoi(currentOctet) < 0 || stoi(currentOctet) > 255)
-				return "Too big a value of a part";
-		}
-		// if can't convert octet to int 
-		catch (invalid_argument)
-		{
-			return "Only digits and dots allowed";
-		}
+		j = str.substr(0, i).find("=");
+		//cout << str.substr(0, j) << endl;
+		//cout << str.substr(j + 1, i - j - 1) << endl;
+		temp = Find(temp, str.substr(0, j), str.substr(j + 1, i - j - 1));
+		str.erase(0, i + 1);
 	}
-	return "Correct IP";
+	return temp;
 }
-
 int main()
 {
-	std::string ipAddress;
-	std::getline(std::cin, ipAddress);
-
-	std::cout << CheckIP(ipAddress) << std::endl;
-
-	return 0;
+	string values;
+	std::getline(cin, values);
+	string templat;
+	getline(cin, templat);
+	templat = Replace(values, templat);
+	// Put values into the template
+	cout << templat << "\n";
 }

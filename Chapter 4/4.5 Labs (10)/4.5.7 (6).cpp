@@ -1,69 +1,68 @@
 #include <string>
 #include <iostream>
+using namespace std;
 
-bool AnalyzeByASCIITable(std::string str, int firstIndex, int lastIndex) {
 
-	for (int i = firstIndex; i < lastIndex + 1; i++)
-		if (str.find((char)i) != -1)
-			return true;
 
-	return false;
+string ToUpper(string str)
+{
+	for (auto& c : str)
+	{
+		c = toupper(c);
+	}
+	return str;
+
 }
 
-bool ContainsSpecChar(std::string str) {
-	// spec chars in ASCII: 33-47, 58-64, 91-96, 123-126
-	return AnalyzeByASCIITable(str, 33, 47) || AnalyzeByASCIITable(str, 58, 64)
-		|| AnalyzeByASCIITable(str, 91, 96) || AnalyzeByASCIITable(str, 123, 126);
+string ToSpecy(string str) 
+{
+	string str1 = " ";
+	//cout << str << endl;
+	for (int i = 0; i < str.length(); i += 2)
+	{
+		str.insert(i + 1, 1, ' ');
+	}
+	//cout << str <<"|"<< endl;
+	return (str1+str);
 }
 
-bool ContainsDigit(std::string str) {
-	// 48-57 are digits in ASCII
-	return AnalyzeByASCIITable(str, 48, 57);
+string MakeGood(string str)
+{
+	int j = 0;
+	string answ = "";
+	for (int i = 0; i < str.length(); i++)
+	{
+		j = 0;
+		if (str[i] == '_')
+		{
+			if (str.substr(i + 1).find("_") < str.substr(i + 1).find("*"))
+			{
+				j = str.substr(i + 1).find("_") + i;
+				answ += ToSpecy(str.substr(i + 1, j - i));
+				i = j + 1;
+			}
+		}
+		else if (str[i] == '*')
+		{
+			if (str.substr(i + 1).find("*") < str.substr(i + 1).find("_"))
+			{
+				j = str.substr(i + 1).find("*") + i;
+				answ += ToUpper(str.substr(i + 1, j - i));
+				i = j + 1;
+			}
+		}
+		else answ += str[i];
+	}
+	return answ;
 }
-
-bool ContainsLowerCase(std::string str) {
-	// lowercase chars is ASCII are 97-122
-	return AnalyzeByASCIITable(str, 97, 122);
-}
-
-bool ContainsUpperCase(std::string str) {
-	// lowercase chars is ASCII are 65-90
-	return AnalyzeByASCIITable(str, 65, 90);
-}
-
 int main()
 {
-	bool isValid = true;
-	std::string password;
-	std::string message = "";
-	std::getline(std::cin, password);
+	string sentence;
+	getline(cin, sentence);
+	cout << MakeGood(sentence) << endl;
+	// manipulate the sentence here
 
-	if (password.length() < 8) {
-		message += "The password must be 8 characters long\n";
-		isValid = false;
-	}
 
-	if (!ContainsSpecChar(password)) {
-		message += "The password must have at least one special character\n";
-		isValid = false;
-	}
-
-	if (!ContainsDigit(password)) {
-		message += "The password must have at least one digit\n";
-		isValid = false;
-	}
-
-	if (!ContainsLowerCase(password)) {
-		message += "The password must have at least one lower case character.\n";
-		isValid = false;
-	}
-
-	if (!ContainsUpperCase(password)) {
-		message += "The password must have at least one upper case character.\n";
-		isValid = false;
-	}
-
-	std::cout << (isValid ? "The password is valid" : message) << std::endl;
-
-	return 0;
+	//cout << Calsub(sentence) << endl;
+	//cout << sentence << "\n";
 }

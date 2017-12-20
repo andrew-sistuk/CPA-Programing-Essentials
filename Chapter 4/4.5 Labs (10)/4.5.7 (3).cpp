@@ -1,38 +1,54 @@
 #include <iostream>
 #include <string>
+using namespace std;
+
+string findStop(string str, string stop)
+{
+	string foo = "";
+	int a = 0, b = 0, c, d;
+	while ((str.substr(a)).find(" ") != string::npos)
+	{
+		b = (str.substr(a)).find(" ");
+		foo = str.substr(a, b);
+
+		for (auto& c : foo)
+		{
+			c = tolower(c);
+		}
+
+		if (foo == stop)
+		{
+			str.erase(a, b + 1);
+			a = 0;
+			b = 0;
+		}
+		else
+		{
+			a += b + 1;
+			b = 0;
+		}
+	}
+	return str;
+}
 
 int main()
 {
-	std::string first, second;
-	bool result = true;
-	int letterCountInFirst = 0, letterCountInSecond = 0, index = -1;
-
-	std::cout << "Enter first word: ";
-	std::cin >> first;
-
-	std::cout << "Enter second word: ";
-	std::cin >> second;
-
-	if (first.length() != second.length()) {
-		result = false;
+	string stop_words;
+	getline(std::cin, stop_words);
+	string sentence;
+	getline(std::cin, sentence);
+	// remove stop_words from sentence here
+	int a = 0, b = 0;
+	do
+	{
+		b = (stop_words.substr(a)).find(",");
+		sentence = findStop(sentence, stop_words.substr(a, b));
+		a += b + 1;
+		b = 0;
+		
 	}
-	else {
-		for (int i = 0; i < first.length(); i++) {
+	while ((stop_words.substr(a)).find(",") != string::npos);
+	sentence = findStop(sentence, stop_words.substr(a));
 
-			while ((index = first.find(first[i], index + 1)) != -1)
-				letterCountInFirst++;
-
-			while ((index = second.find(first[i], index + 1)) != -1)
-				letterCountInSecond++;
-
-			if (letterCountInFirst != letterCountInSecond) {
-				result = false;
-				break;
-			}
-		}
-	}
-
-	std::cout << (result ? "" : "not ") << "anagrams" << std::endl;
-
-	return 0;
+	cout << sentence << "\n";
 }
